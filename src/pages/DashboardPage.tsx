@@ -10,6 +10,13 @@ export const DashboardPage: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
+
+    useEffect(() => {
+        if (!isAuthLoading && !isAuthenticated) {
+            navigate('/login', { replace: true });
+        }
+    }, [isAuthenticated, isAuthLoading, navigate]);
 
     useEffect(() => {
         const fetchProducts = async () => {
