@@ -46,13 +46,17 @@ describe('DashboardPage', () => {
             const { unmount } = renderDashboardPage('admin');
             const adminBadge = await screen.findByText('管理員');
             expect(adminBadge.className).toContain('role-badge');
-            expect(adminBadge.className).toContain('admin');
+            await waitFor(() => {
+                expect(adminBadge.className).toContain('admin');
+            });
             unmount();
 
             renderDashboardPage('user');
             const userBadge = await screen.findByText('一般用戶');
             expect(userBadge.className).toContain('role-badge');
-            expect(userBadge.className).toContain('user');
+            await waitFor(() => {
+                expect(userBadge.className).toContain('user');
+            });
         });
     });
 
