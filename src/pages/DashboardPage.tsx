@@ -70,7 +70,7 @@ export const DashboardPage: React.FC = () => {
                         </div>
                         <div className="welcome-text">
                             <h2>Welcome, {user?.username || 'User'} 👋</h2>
-                            <span className={`role-badge ${user?.role}`}>
+                            <span className={`role-badge ${user?.role || ''}`}>
                                 {user?.role === 'admin' ? '管理員' : '一般用戶'}
                             </span>
                         </div>
