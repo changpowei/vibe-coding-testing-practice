@@ -62,8 +62,11 @@ export const LoginPage: React.FC = () => {
         e.preventDefault();
         setApiError('');
 
-        const isEmailValid = validateEmail(email);
-        const isPasswordValid = validatePassword(password);
+        const trimmedEmail = email.trim();
+        const trimmedPassword = password.trim();
+
+        const isEmailValid = validateEmail(trimmedEmail);
+        const isPasswordValid = validatePassword(trimmedPassword);
 
         if (!isEmailValid || !isPasswordValid) {
             return;
@@ -71,7 +74,7 @@ export const LoginPage: React.FC = () => {
 
         setIsLoading(true);
         try {
-            await login(email, password);
+            await login(trimmedEmail, trimmedPassword);
             navigate('/dashboard', { replace: true });
         } catch (error) {
             const axiosError = error as AxiosError<{ message: string }>;

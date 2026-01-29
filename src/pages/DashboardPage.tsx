@@ -10,6 +10,13 @@ export const DashboardPage: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
+
+    useEffect(() => {
+        if (!isAuthLoading && !isAuthenticated) {
+            navigate('/login', { replace: true });
+        }
+    }, [isAuthenticated, isAuthLoading, navigate]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -63,7 +70,7 @@ export const DashboardPage: React.FC = () => {
                         </div>
                         <div className="welcome-text">
                             <h2>Welcome, {user?.username || 'User'} 👋</h2>
-                            <span className={`role-badge ${user?.role}`}>
+                            <span className={`role-badge ${user?.role || ''}`}>
                                 {user?.role === 'admin' ? '管理員' : '一般用戶'}
                             </span>
                         </div>
